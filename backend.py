@@ -1,10 +1,12 @@
 # Flask Tutorial Tech with Tim
 
 from flask import Flask, render_template, url_for, redirect, request, session
+from datetime import timedelta
 
 app = Flask(__name__)
-
 app.secret_key = "Hello"
+app.permanent_session_lifetime = timedelta(seconds=30)
+
 
 @app.route("/")
 def home():
