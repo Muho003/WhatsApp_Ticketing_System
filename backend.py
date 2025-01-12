@@ -1,8 +1,10 @@
 # Flask Tutorial Tech with Tim
 
-from flask import Flask, render_template, url_for, redirect, request
+from flask import Flask, render_template, url_for, redirect, request, session
 
 app = Flask(__name__)
+
+app.secret_key = "Hello"
 
 @app.route("/")
 def home():
@@ -12,13 +14,18 @@ def home():
 def login():
     if request.method == "POST":
         user = request.form["nm"]
-        return redirect(url_for("user", usr=user))
+        session["user"] = user
+        return redirect(url_for("user"))
     else:
         return render_template("login.html")
 
-@app.route("/<usr>")
-def user(usr):
-    return f"<h1>{usr}</h1>"
+@app.route("/user")
+def user():
+    if "user" in session:
+        user = session["user"]
+        return f"<h1>{user}</h1>"
+    else:
+        redirect(url_for("login"))
 
 if __name__ == "__main__":
     app.run(debug=True)
