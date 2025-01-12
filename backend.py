@@ -1,6 +1,6 @@
 # Flask Tutorial Tech with Tim
 
-from flask import Flask, render_template, url_for, redirect
+from flask import Flask, render_template, url_for, redirect, request
 
 app = Flask(__name__)
 
@@ -10,7 +10,11 @@ def home():
 
 @app.route("/login", methods=["POST", "GET"])
 def login():
-    return render_template("login.html")
+    if request.method == "POST":
+        user = request.form["nm"]
+        return redirect(url_for("user", usr=user))
+    else:
+        return render_template("login.html")
 
 @app.route("/<usr>")
 def user(usr):
