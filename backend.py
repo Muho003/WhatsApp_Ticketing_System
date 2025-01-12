@@ -1,5 +1,4 @@
-# This is from John Hammond's tutorial
-# Needs to be cleaned up and updated further
+# Flask Tutorial Tech with Tim
 
 from flask import Flask, render_template
 
@@ -10,6 +9,6 @@ def home():
     return render_template("index.html")
 
 if __name__ == "__main__":
-    app.run()
+    app.run(debug=True)
 
 
